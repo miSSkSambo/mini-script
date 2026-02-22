@@ -271,7 +271,7 @@ Final Ledger:
 <img width="960" height="1020" alt="parser hs" src="https://github.com/user-attachments/assets/7d57bb4c-edd3-47b4-95a7-71fa4fc3933e" />
 
 ## 📊 Program Output
-<img width="960" height="1020" alt="output for mini script" src="https://github.com/user-attachments/assets/655d6122-8ad6-4ac6-af83-59892e9d8277" 
+<img width="960" height="1020" alt="output for mini script" src="https://github.com/user-attachments/assets/655d6122-8ad6-4ac6-af83-59892e9d8277" />
 
 
 ---
