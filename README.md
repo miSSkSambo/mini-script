@@ -1,7 +1,5 @@
-# mini-script
 
-
-# 🚀 MiniScript Smart Contract S (Haskell)
+# 🚀 MiniScript Smart Contract (Haskell)
 
 ![Haskell](https://img.shields.io/badge/Language-Haskell-purple)
 ![Build](https://img.shields.io/badge/Build-Cabal-blue)
