@@ -1,0 +1,21 @@
+module Interpreter where
+
+import AST
+import Ledger
+
+execute :: Ledger -> Statement -> Either String Ledger
+execute ledger stmt =
+  case stmt of
+    Transfer from to amount ->
+      transfer ledger from to amount
+
+    IfBalance name comp value innerStmt ->
+      let balance = getBalance ledger name
+          condition =
+            case comp of
+              GreaterThan -> balance > value
+              LessThan    -> balance < value
+              EqualTo     -> balance == value
+      in if condition
+           then execute ledger innerStmt
+           else Right ledger
