@@ -1,0 +1,41 @@
+module Main where
+
+import AST
+import Ledger
+import Interpreter
+import qualified Data.Map as Map
+
+printLedger :: Ledger -> IO ()
+printLedger ledger = do
+  putStrLn "\nCurrent Ledger State:"
+  mapM_ print (Map.toList ledger)
+
+main :: IO ()
+main = do
+  putStrLn "🚀 MiniScript Smart Contract Simulator"
+
+  let ledger0 = initialLedger
+
+  -- Example script using real names
+  let script =
+        [ Transfer "Kabelo" "Kelebogile" 100
+        , Transfer "Kelebogile" "Karabo" 50
+        , IfBalance "Kabelo" GreaterThan 500
+            (Transfer "Kabelo" "Karabo" 200)
+        ]
+
+  putStrLn "\nInitial Ledger:"
+  printLedger ledger0
+
+  -- Execute script step-by-step
+  let result = foldl run (Right ledger0) script
+
+  case result of
+    Left err -> putStrLn ("\nExecution Error: " ++ err)
+    Right finalLedger -> do
+      putStrLn "\nFinal Ledger:"
+      printLedger finalLedger
+
+run :: Either String Ledger -> Statement -> Either String Ledger
+run (Left err) _ = Left err
+run (Right ledger) stmt = execute ledger stmt
