@@ -1,0 +1,31 @@
+module Ledger where
+
+import qualified Data.Map as Map
+
+type Name = String
+type Amount = Integer
+type Ledger = Map.Map Name Amount
+
+-- Create initial ledger with some balances
+initialLedger :: Ledger
+initialLedger = Map.fromList
+  [ ("Kabelo", 1000)
+  , ("Kelebogile", 500)
+  , ("Karabo", 200)
+  ]
+
+-- Get balance of a person
+getBalance :: Ledger -> Name -> Amount
+getBalance ledger name =
+  Map.findWithDefault 0 name ledger
+
+-- Transfer money between accounts
+transfer :: Ledger -> Name -> Name -> Amount -> Either String Ledger
+transfer ledger from to amount
+  | amount <= 0 = Left "Amount must be positive."
+  | getBalance ledger from < amount = Left "Insufficient funds."
+  | otherwise =
+      let updatedFrom = getBalance ledger from - amount
+          updatedTo   = getBalance ledger to + amount
+          ledger1     = Map.insert from updatedFrom ledger
+      in Right (Map.insert to updatedTo ledger1)
